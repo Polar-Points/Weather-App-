@@ -1,4 +1,4 @@
-package com.marty.dang.polarpointsweatherapp.model
+package com.marty.dang.polarpointsweatherapp.data.model
 
 import com.squareup.moshi.Json
 

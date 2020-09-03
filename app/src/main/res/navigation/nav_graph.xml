@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFrag">
+
+    <fragment
+        android:id="@+id/homeFrag"
+        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.HomeFrag"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFrag_to_weatherDisplayFrag"
+            app:destination="@id/weatherDisplayFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherDisplayFrag"
+        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.WeatherDisplayFrag"
+        android:label="weather_display_fragment"
+        tools:layout="@layout/weather_display_fragment" >
+        <action
+            android:id="@+id/action_weatherDisplayFrag_to_homeFrag"
+            app:destination="@id/homeFrag" />
+    </fragment>
+</navigation>

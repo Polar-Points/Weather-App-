@@ -1,5 +1,6 @@
-package com.marty.dang.polarpointsweatherapp
+package com.marty.dang.polarpointsweatherapp.data.repository
 
+import com.marty.dang.polarpointsweatherapp.data.OpenWeatherApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -22,7 +23,6 @@ class WeatherRepository {
             .build()
             .create(OpenWeatherApiService::class.java)
     }
-
 
     suspend fun getCurrentWeather() = webservice.getCurrentWeather()
 }

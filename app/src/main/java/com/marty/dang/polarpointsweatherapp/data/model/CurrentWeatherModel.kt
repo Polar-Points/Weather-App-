@@ -1,5 +1,6 @@
-package com.marty.dang.polarpointsweatherapp.model
+package com.marty.dang.polarpointsweatherapp.data.model
 
+import com.marty.dang.polarpointsweatherapp.data.model.CurrentModel
 import com.squareup.moshi.Json
 
 /**
