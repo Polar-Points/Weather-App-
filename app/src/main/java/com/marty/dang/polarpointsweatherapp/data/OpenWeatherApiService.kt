@@ -1,6 +1,6 @@
 package com.marty.dang.polarpointsweatherapp.data
 
-import com.marty.dang.polarpointsweatherapp.data.utils.Keys
+import com.marty.dang.polarpointsweatherapp.utils.Keys
 import com.marty.dang.polarpointsweatherapp.data.model.CurrentWeatherModel
 import retrofit2.http.GET
 

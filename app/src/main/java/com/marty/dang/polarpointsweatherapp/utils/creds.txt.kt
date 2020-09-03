@@ -1,4 +1,4 @@
-package com.marty.dang.polarpointsweatherapp
+package com.marty.dang.polarpointsweatherapp.utils
 
 /**
  *   Created by Marty Dang on 9/2/20

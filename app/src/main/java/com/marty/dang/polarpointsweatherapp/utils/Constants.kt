@@ -1,4 +1,4 @@
-package com.marty.dang.polarpointsweatherapp
+package com.marty.dang.polarpointsweatherapp.utils
 
 import android.Manifest
 
@@ -16,10 +16,4 @@ object Constants {
 
     // request codes
     const val locationCode = 100
-
-    // strings
-    const val ok = "Ok"
-    const val cancel = "Cancel"
-    const val permissionDialogTitle = "Permission Needed"
-    const val locationPermissionExplanation = "This app needs your location to give you your weather forecast"
 }

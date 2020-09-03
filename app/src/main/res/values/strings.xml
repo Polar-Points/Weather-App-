@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Polar Points Weather App</string>
     <string name="home_frag_title">Weather</string>
+    <string name="home_frag_location_string">%1$s, %2$s</string>
+
+
     <string name="place_holder_text">Insert Text Here</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="permission_dialog_title">Location permission needed</string>
+    <string name="location_permission_explanation">This app needs your location to give you an accurate weather forecast</string>
+
 
 </resources>
