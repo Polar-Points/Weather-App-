@@ -1,23 +1,30 @@
 package com.marty.dang.polarpointsweatherapp.presentation.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.math.roundToInt
 
 class HomeViewModel : ViewModel() {
 
     private val weatherRepo: WeatherRepository = WeatherRepository()
 
-    val weather = liveData(Dispatchers.IO) {
-        val currentWeather = weatherRepo.getCurrentWeather()
-        emit(currentWeather)
-    }
+    val tempObservable: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+    val iconTypeObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val weatherDescriptionObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val requestMadeTimeObservable: MutableLiveData<String> by lazy {MutableLiveData<String>() }
 
     fun getWeather(latitude: Double, longitude: Double){
-//        val currentWeatherModel = weatherRepo.getCurrentWeather()
-//        val temp = currentWeatherModel.current?.temp
-//        val iconType = currentWeatherModel.current?.weather?.get(1)
-//        val weatherDescription = currentWeatherModel.current?.weather?.get(2)
+        GlobalScope.launch(Dispatchers.IO) {
+            val currentWeatherModel = weatherRepo.getCurrentWeather(latitude, longitude)
+            tempObservable.postValue(currentWeatherModel.current?.temp?.roundToInt())
+            iconTypeObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.main)
+            weatherDescriptionObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.description)
+            requestMadeTimeObservable.postValue(Calendar.getInstance().time.toString())
+        }
     }
 }
