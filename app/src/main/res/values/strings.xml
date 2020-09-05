@@ -1,14 +1,35 @@
 <resources>
     <string name="app_name">Polar Points Weather App</string>
-    <string name="home_frag_title">Weather</string>
+    <string name="home_frag_title">Current Weather</string>
     <string name="home_frag_location_string">%1$s, %2$s</string>
 
 
     <string name="place_holder_text">Insert Text Here</string>
+    <string name="temp_place_holder_text">100</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="permission_dialog_title">Location permission needed</string>
     <string name="location_permission_explanation">This app needs your location to give you an accurate weather forecast</string>
+
+    <string name="daily_tab_title">Daily</string>
+    <string name="settings_tab_title">Settings</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

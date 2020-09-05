@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dailyWeatherFrag"
+        android:icon="@drawable/daily_icon"
+        android:title="@string/daily_tab_title"/>
+
+    <item
+        android:id="@+id/settingsFrag"
+        android:icon="@drawable/settings_icon"
+        android:title="@string/settings_tab_title"/>
+</menu>

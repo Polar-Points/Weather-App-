@@ -3,25 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFrag">
+    app:startDestination="@id/dailyWeatherFrag">
 
     <fragment
-        android:id="@+id/homeFrag"
+        android:id="@+id/dailyWeatherFrag"
         android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.HomeFrag"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
         <action
-            android:id="@+id/action_homeFrag_to_weatherDisplayFrag"
-            app:destination="@id/weatherDisplayFrag" />
+            android:id="@+id/action_dailyWeatherFrag_to_settingsFrag"
+            app:destination="@id/settingsFrag" />
     </fragment>
-
     <fragment
-        android:id="@+id/weatherDisplayFrag"
-        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.WeatherDisplayFrag"
-        android:label="weather_display_fragment"
-        tools:layout="@layout/weather_display_fragment" >
-        <action
-            android:id="@+id/action_weatherDisplayFrag_to_homeFrag"
-            app:destination="@id/homeFrag" />
-    </fragment>
+        android:id="@+id/settingsFrag"
+        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.SettingsFrag"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

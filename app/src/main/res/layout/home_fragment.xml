@@ -10,7 +10,7 @@
         android:id="@+id/homeFrag_title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="48dp"
         android:text="@string/home_frag_title"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,10 +22,10 @@
         android:id="@+id/homeFrag_weather_icon"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/snow_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeFrag_title_text_view" />
 
@@ -34,9 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="@string/place_holder_text"
-        android:textSize="40dp"
+        android:text="@string/temp_place_holder_text"
+        android:textSize="80dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeFrag_weather_icon" />
 
@@ -47,7 +48,6 @@
         android:layout_marginTop="20dp"
         android:text="@string/place_holder_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeFrag_temperature_text_view" />
 
@@ -55,33 +55,31 @@
         android:id="@+id/location_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="125dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
         android:src="@drawable/location_icon"
-        app:layout_constraintEnd_toStartOf="@+id/homeFrag_location"
-        app:layout_constraintTop_toBottomOf="@+id/homeFrag_weather_description" />
+        app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
+        app:layout_constraintEnd_toStartOf="@+id/homeFrag_location" />
 
     <TextView
         android:id="@+id/homeFrag_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/place_holder_text"
+        app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFrag_weather_description" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/homeFrag_last_time_updated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/place_holder_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFrag_location"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
