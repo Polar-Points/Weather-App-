@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class DailyWeatherViewModel(application: Application) : AndroidViewModel(application) {
 
     private val weatherRepo = WeatherRepository()
     private val cache = CurrentWeatherCache(application)
@@ -31,7 +31,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             // return stuff in cache
             val cacheValues = cache.getCurrentWeatherFromCache()
-            tempObservable.postValue(cacheValues[Constants.cacheTempKey])
+            tempObservable.postValue(cacheValues[Constants.cacheTempKey] + "\u2109")
             iconTypeObservable.postValue(cacheValues[Constants.cacheWeatherIconKey])
             weatherDescriptionObservable.postValue(cacheValues[Constants.cacheWeatherDescriptionKey])
             requestMadeTimeObservable.postValue(getDate(cache.lastTimeAccessed,"dd/MM/yyyy hh:mm"))
@@ -47,7 +47,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private fun getCurrentWeatherFromRepo(latitude: Double, longitude: Double){
         GlobalScope.launch(Dispatchers.IO) {
             val currentWeatherModel = weatherRepo.getCurrentWeather(latitude, longitude)
-            tempObservable.postValue(currentWeatherModel.current?.temp?.roundToInt().toString())
+            tempObservable.postValue(currentWeatherModel.current?.temp?.roundToInt().toString()+ "\u2109")
             iconTypeObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.main)
             weatherDescriptionObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.description)
             requestMadeTimeObservable.postValue(getDate(System.currentTimeMillis(),"dd/MM/yyyy hh:mm"))

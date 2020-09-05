@@ -10,45 +10,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.marty.dang.polarpointsweatherapp.R
-import com.marty.dang.polarpointsweatherapp.presentation.viewmodel.HomeViewModel
+import com.marty.dang.polarpointsweatherapp.databinding.HomeFragmentBinding
+import com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel
 import com.marty.dang.polarpointsweatherapp.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 
 
-class HomeFrag : Fragment() {
+class DailyWeatherFrag : Fragment() {
 
-    private lateinit var viewModel: HomeViewModel
-    private lateinit var weatherImage: ImageView
-    private lateinit var tempTextView: TextView
-    private lateinit var weatherDescriptionTextView: TextView
-    private lateinit var locationTextView: TextView
-    private lateinit var lastTimeUpdatedTextView: TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupViewModel()
-    }
+    private lateinit var viewModel: DailyWeatherViewModel
+    private lateinit var binding: HomeFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view =  inflater.inflate(R.layout.home_fragment, container, false)
-        setUpUI(view)
-        return view
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.home_fragment, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViewModel()
         getCurrentWeather()
     }
 
@@ -62,30 +53,12 @@ class HomeFrag : Fragment() {
         }
     }
 
-    private fun setUpUI(view: View){
-        tempTextView = view.findViewById(R.id.homeFrag_temperature_text_view)
-        weatherDescriptionTextView = view.findViewById(R.id.homeFrag_weather_description)
-        locationTextView = view.findViewById(R.id.homeFrag_location)
-        lastTimeUpdatedTextView = view.findViewById(R.id.homeFrag_last_time_updated)
-        weatherImage = view.findViewById(R.id.homeFrag_weather_icon)
-    }
-
+    // set up view model
     private fun setupViewModel(){
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.tempObservable.observe(this, Observer {
-            tempTextView.text = it.toString()+"\u2109"
-        })
-        viewModel.iconTypeObservable.observe(this, Observer {
-
-        })
-        viewModel.weatherDescriptionObservable.observe(this, Observer {
-            weatherDescriptionTextView.text = it.toString()
-        })
-        viewModel.requestMadeTimeObservable.observe(this, Observer {
-            lastTimeUpdatedTextView.text = it
-        })
-        viewModel.iconTypeObservable.observe(this, Observer {
-            weatherImage.setImageDrawable(determineWeatherImage(it))
+        viewModel = ViewModelProvider(this).get(DailyWeatherViewModel::class.java)
+        binding.viewModel = viewModel
+        viewModel.iconTypeObservable.observe(viewLifecycleOwner, Observer {
+            binding.weatherIcon = determineWeatherImage(it)
         })
     }
 
@@ -130,7 +103,7 @@ class HomeFrag : Fragment() {
     private fun getCurrentLocation(latitude: Double, longitude: Double) {
         val geocoder = Geocoder(requireActivity(), Locale.getDefault())
         val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-        locationTextView.text = getString(R.string.home_frag_location_string, addresses[0].locality,addresses[0].adminArea)
+        binding.location = getString(R.string.home_frag_location_string, addresses[0].locality,addresses[0].adminArea)
     }
 
     // depending on weather description, change image shown

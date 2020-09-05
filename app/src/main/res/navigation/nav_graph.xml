@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dailyWeatherFrag"
-        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.HomeFrag"
+        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.DailyWeatherFrag"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
         <action

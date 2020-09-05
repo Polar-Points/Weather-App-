@@ -1,89 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.fragment.HomeFrag">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/homeFrag_title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/home_frag_title"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable name="weatherIcon" type="android.graphics.drawable.Drawable"/>
+        <variable name="temperature" type="String"/>
+        <variable name="description" type="String"/>
+        <variable name="location" type="String"/>
+        <variable name="lastUpdated" type="String"/>
+        <variable name="viewModel"
+            type="com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel"/>
+    </data>
 
-    <ImageView
-        android:id="@+id/homeFrag_weather_icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/snow_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFrag_title_text_view" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.fragment.DailyWeatherFrag">
 
-    <TextView
-        android:id="@+id/homeFrag_temperature_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/temp_place_holder_text"
-        android:textSize="80sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFrag_weather_icon" />
+        <TextView
+            android:id="@+id/homeFrag_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/home_frag_title"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/homeFrag_weather_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/place_holder_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFrag_temperature_text_view" />
+        <ImageView
+            android:id="@+id/homeFrag_weather_icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="40dp"
+            android:src="@{weatherIcon}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_title_text_view" />
 
-    <ImageView
-        android:id="@+id/location_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
-        android:src="@drawable/location_icon"
-        app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
-        app:layout_constraintEnd_toStartOf="@+id/homeFrag_location" />
+        <TextView
+            android:id="@+id/homeFrag_temperature_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@{viewModel.tempObservable}"
+            android:textSize="80sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_weather_icon" />
 
-    <TextView
-        android:id="@+id/homeFrag_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="@string/place_holder_text"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/homeFrag_weather_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@{viewModel.weatherDescriptionObservable}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_temperature_text_view" />
 
-    <TextView
-        android:id="@+id/homeFrag_last_time_updated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/place_holder_text"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/location_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/location_icon"
+            app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
+            app:layout_constraintEnd_toStartOf="@+id/homeFrag_location" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/homeFrag_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@{location}"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/homeFrag_last_time_updated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@{viewModel.requestMadeTimeObservable}"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
