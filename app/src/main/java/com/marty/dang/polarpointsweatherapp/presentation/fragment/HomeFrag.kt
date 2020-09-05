@@ -99,7 +99,6 @@ class HomeFrag : Fragment() {
                 // TODO: Use last known location if can't get current location
                 val latitude = location?.latitude ?: 0.0
                 val longitude = location?.longitude ?: 0.0
-                // TODO: Should only get weather if we change locations for now and once an hour
                 viewModel.getWeather(latitude, longitude)
                 getCurrentLocation(latitude, longitude)
             }
@@ -133,6 +132,7 @@ class HomeFrag : Fragment() {
         locationTextView.text = getString(R.string.home_frag_location_string, addresses[0].locality,addresses[0].adminArea)
     }
 
+    // depending on weather description, change image shown
     private fun determineWeatherImage(weatherDescription: String): Drawable? {
         when(weatherDescription){
             "Thunderstorm" -> return ContextCompat.getDrawable(requireContext(), R.drawable.thunderstorm_icon)

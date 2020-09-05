@@ -16,4 +16,16 @@ object Constants {
 
     // request codes
     const val locationCode = 100
+
+    // cache
+    const val cacheTempKey = "cacheCurrentTemp"
+    const val cacheWeatherIconKey = "cacheWeatherIcon"
+    const val cacheWeatherDescriptionKey = "cacheWeatherDescriptionKey"
+
+    // shared prefs
+    const val sharedPrefsFile = "sharedPrefs"
+    const val sharedPrefsCurrentTempKey = "sharedPrefsCurrentTemp"
+    const val sharedPrefsCurrentIconKey = "sharedPrefsCurrentIcon"
+    const val sharedPrefsCurrentWeatherDescriptionKey = "sharedPrefsWeatherDescription"
+    const val sharedPrefsLastRequestTimeKey = "sharedPrefsRequestTime"
 }
