@@ -87,3 +87,5 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
+
+app/src/main/java/com/marty/dang/polarpointsweatherapp/utils/Keys.kt
