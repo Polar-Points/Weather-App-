@@ -43,6 +43,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // get weather data from our repo
     private fun getCurrentWeatherFromRepo(latitude: Double, longitude: Double){
         GlobalScope.launch(Dispatchers.IO) {
             val currentWeatherModel = weatherRepo.getCurrentWeather(latitude, longitude)
@@ -62,6 +63,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // date util function which formats our date
     private fun getDate(milliSeconds: Long, dateFormat: String): String {
         // Create a DateFormatter object for displaying date in specified format.
         val formatter = SimpleDateFormat(dateFormat, Locale.US)

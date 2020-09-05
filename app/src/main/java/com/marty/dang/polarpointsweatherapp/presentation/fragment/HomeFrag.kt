@@ -23,6 +23,7 @@ import com.marty.dang.polarpointsweatherapp.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 
@@ -94,11 +95,11 @@ class HomeFrag : Fragment() {
             ActivityCompat.checkSelfPermission(requireContext(), Constants.locationPermissionsArray[1]) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission()
         } else {
+            //TODO: handle case where not able to get location
             val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
             locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).let { location ->
-                // TODO: Use last known location if can't get current location
-                val latitude = location?.latitude ?: 0.0
-                val longitude = location?.longitude ?: 0.0
+                val latitude = location?.latitude ?: 40.0
+                val longitude = location?.longitude ?: -74.0
                 viewModel.getWeather(latitude, longitude)
                 getCurrentLocation(latitude, longitude)
             }
