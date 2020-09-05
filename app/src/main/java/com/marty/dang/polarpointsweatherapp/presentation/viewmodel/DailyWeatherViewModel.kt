@@ -3,6 +3,7 @@ package com.marty.dang.polarpointsweatherapp.presentation.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import com.marty.dang.polarpointsweatherapp.utils.Constants
@@ -13,6 +14,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
+// https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e
+// view model is fine containing application context
 class DailyWeatherViewModel(application: Application) : AndroidViewModel(application) {
 
     private val weatherRepo = WeatherRepository()
@@ -45,14 +48,13 @@ class DailyWeatherViewModel(application: Application) : AndroidViewModel(applica
 
     // get weather data from our repo
     private fun getCurrentWeatherFromRepo(latitude: Double, longitude: Double){
-        GlobalScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             val currentWeatherModel = weatherRepo.getCurrentWeather(latitude, longitude)
             tempObservable.postValue(currentWeatherModel.current?.temp?.roundToInt().toString()+ "\u2109")
             iconTypeObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.main)
             weatherDescriptionObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.description)
             requestMadeTimeObservable.postValue(getDate(System.currentTimeMillis(),"dd/MM/yyyy hh:mm"))
 
-            //TODO: Move this to another thread
             val cacheValues = mutableMapOf<String,String>()
             cacheValues[Constants.cacheTempKey] = currentWeatherModel.current?.temp?.roundToInt().toString()
             cacheValues[Constants.cacheWeatherIconKey] = currentWeatherModel.current?.weather?.get(0)?.main ?: "Clouds"

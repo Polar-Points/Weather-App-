@@ -47,9 +47,7 @@ class DailyWeatherFrag : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if(requestCode == Constants.locationCode){
-            GlobalScope.launch(Dispatchers.Main) {
-                getCurrentWeather()
-            }
+            getCurrentWeather()
         }
     }
 
