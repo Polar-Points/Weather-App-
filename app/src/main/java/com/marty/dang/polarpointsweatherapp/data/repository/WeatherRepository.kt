@@ -17,7 +17,7 @@ import java.util.*
  *   Created by Marty Dang on 8/21/20
  *   Copyright @ 2019 Dang, Marty. All rights reserved.
  */
-class WeatherRepository() {
+class WeatherRepository {
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

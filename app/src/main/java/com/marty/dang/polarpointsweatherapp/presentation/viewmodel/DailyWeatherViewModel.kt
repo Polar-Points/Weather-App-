@@ -1,14 +1,17 @@
 package com.marty.dang.polarpointsweatherapp.presentation.viewmodel
 
 import android.app.Application
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.marty.dang.polarpointsweatherapp.R
 import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import com.marty.dang.polarpointsweatherapp.utils.Constants
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,10 +19,9 @@ import kotlin.math.roundToInt
 
 // https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e
 // view model is fine containing application context
-class DailyWeatherViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val weatherRepo = WeatherRepository()
-    private val cache = CurrentWeatherCache(application)
+class DailyWeatherViewModel(
+    private val weatherRepo: WeatherRepository,
+    private val cache: CurrentWeatherCache) : ViewModel() {
 
     val tempObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val iconTypeObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
