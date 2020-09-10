@@ -14,31 +14,32 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.marty.dang.polarpointsweatherapp.MyApplication
 import com.marty.dang.polarpointsweatherapp.R
-import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
-import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import com.marty.dang.polarpointsweatherapp.databinding.HomeFragmentBinding
 import com.marty.dang.polarpointsweatherapp.presentation.DailyWeatherViewModelFactory
 import com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel
 import com.marty.dang.polarpointsweatherapp.utils.Constants
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
 
 class DailyWeatherFrag : Fragment() {
 
-    private lateinit var viewModel: DailyWeatherViewModel
-    private lateinit var viewModelFactory: DailyWeatherViewModelFactory
+    private val viewModel by viewModels<DailyWeatherViewModel> { viewModelFactory }
+    @Inject lateinit var viewModelFactory: DailyWeatherViewModelFactory
     private lateinit var binding: HomeFragmentBinding
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.home_fragment, container, false)
         binding.lifecycleOwner = this
-        viewModelFactory = DailyWeatherViewModelFactory(WeatherRepository(), CurrentWeatherCache(requireContext()))
         return binding.root
     }
 
@@ -58,7 +59,6 @@ class DailyWeatherFrag : Fragment() {
 
     // set up view model
     private fun setupViewModel(){
-        viewModel = ViewModelProvider(this, viewModelFactory).get(DailyWeatherViewModel::class.java)
         binding.viewModel = viewModel
         viewModel.iconTypeObservable.observe(viewLifecycleOwner, Observer {
             binding.weatherIcon = determineWeatherImage(it)

@@ -12,12 +12,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
+import javax.inject.Inject
 
 /**
  *   Created by Marty Dang on 8/21/20
  *   Copyright @ 2019 Dang, Marty. All rights reserved.
  */
-class WeatherRepository {
+class WeatherRepository @Inject constructor() {
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

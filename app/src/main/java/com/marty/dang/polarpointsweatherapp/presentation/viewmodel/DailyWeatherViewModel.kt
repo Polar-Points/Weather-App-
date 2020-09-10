@@ -15,11 +15,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 // https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e
 // view model is fine containing application context
-class DailyWeatherViewModel(
+class DailyWeatherViewModel @Inject constructor(
     private val weatherRepo: WeatherRepository,
     private val cache: CurrentWeatherCache) : ViewModel() {
 

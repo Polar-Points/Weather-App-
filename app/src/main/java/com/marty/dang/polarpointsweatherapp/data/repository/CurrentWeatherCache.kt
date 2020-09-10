@@ -2,6 +2,7 @@ package com.marty.dang.polarpointsweatherapp.data.repository
 
 import android.content.Context
 import com.marty.dang.polarpointsweatherapp.utils.Constants
+import javax.inject.Inject
 
 /**
  *   Created by Marty Dang on 9/4/20
@@ -10,7 +11,7 @@ import com.marty.dang.polarpointsweatherapp.utils.Constants
 
 // Very basic cache to help limit API requests
 
-class CurrentWeatherCache(context: Context) {
+class CurrentWeatherCache @Inject constructor(context: Context) {
 
     private val sharedPrefs = context.getSharedPreferences(Constants.sharedPrefsFile, Context.MODE_PRIVATE)
     private val editor = sharedPrefs.edit()

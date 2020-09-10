@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel
+import javax.inject.Inject
 
 /**
  *   Created by Marty Dang on 9/8/20
  *   Copyright @ 2019 Dang, Marty. All rights reserved.
  */
-class DailyWeatherViewModelFactory(
+class DailyWeatherViewModelFactory @Inject constructor(
     private val weatherRepository: WeatherRepository,
     private val currentWeatherCache: CurrentWeatherCache) : ViewModelProvider.Factory {
 
