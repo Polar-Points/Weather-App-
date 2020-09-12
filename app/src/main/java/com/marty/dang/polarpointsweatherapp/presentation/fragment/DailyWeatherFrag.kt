@@ -28,8 +28,8 @@ import javax.inject.Inject
 
 class DailyWeatherFrag : Fragment() {
 
-    private val viewModel by viewModels<DailyWeatherViewModel> { viewModelFactory }
     @Inject lateinit var viewModelFactory: DailyWeatherViewModelFactory
+    private val viewModel by viewModels<DailyWeatherViewModel> { viewModelFactory }
     private lateinit var binding: HomeFragmentBinding
 
     override fun onAttach(context: Context) {

@@ -1,5 +1,6 @@
 package com.marty.dang.polarpointsweatherapp.data.di
 
+import com.marty.dang.polarpointsweatherapp.data.OpenWeatherApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -15,29 +16,35 @@ import javax.inject.Singleton
  *   Copyright @ 2019 Dang, Marty. All rights reserved.
  */
 @Module
-class NetModule(private val baseUrl: String) {
+class NetworkModule {
 
-    @Provides
     @Singleton
-    fun provideMoshi(): Moshi {
+    @Provides
+    fun provideMoshi(): Moshi{
         return Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
     }
 
-    @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+    @Provides
+    fun provideHttpClient(): OkHttpClient.Builder {
+        return OkHttpClient.Builder()
     }
 
-    @Provides
     @Singleton
-    fun provideRetrofit(moshi: Moshi, httpClient: OkHttpClient): Retrofit {
+    @Provides
+    fun provideRetrofit(httpClient : OkHttpClient.Builder, moshi : Moshi): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(httpClient)
-            .baseUrl(baseUrl)
+            .client(httpClient.build())
+            .baseUrl("https://api.openweathermap.org")
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideApi(retrofit: Retrofit): OpenWeatherApiService {
+        return retrofit.create(OpenWeatherApiService::class.java)
     }
 }

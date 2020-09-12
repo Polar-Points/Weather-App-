@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.marty.dang.polarpointsweatherapp.R
 import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import com.marty.dang.polarpointsweatherapp.utils.Constants
