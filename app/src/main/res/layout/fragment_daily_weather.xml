@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="weatherIcon" type="android.graphics.drawable.Drawable"/>
-        <variable name="temperature" type="String"/>
-        <variable name="description" type="String"/>
+        <import type="androidx.core.content.ContextCompat" />
         <variable name="location" type="String"/>
-        <variable name="lastUpdated" type="String"/>
         <variable name="viewModel"
             type="com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel"/>
     </data>
@@ -36,7 +33,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="40dp"
-            android:src="@{weatherIcon}"
+            app:imageResource="@{viewModel.iconObservable}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"

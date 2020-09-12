@@ -9,7 +9,7 @@
         android:id="@+id/dailyWeatherFrag"
         android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.DailyWeatherFrag"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        tools:layout="@layout/fragment_daily_weather" >
         <action
             android:id="@+id/action_dailyWeatherFrag_to_settingsFrag"
             app:destination="@id/settingsFrag" />

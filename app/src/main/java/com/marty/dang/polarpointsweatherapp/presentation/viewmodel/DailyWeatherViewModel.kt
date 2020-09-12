@@ -1,12 +1,9 @@
 package com.marty.dang.polarpointsweatherapp.presentation.viewmodel
 
-import android.app.Application
-import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.marty.dang.polarpointsweatherapp.R
 import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import com.marty.dang.polarpointsweatherapp.utils.Constants
@@ -17,16 +14,14 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-// https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e
-// view model is fine containing application context
 class DailyWeatherViewModel @Inject constructor(
     private val weatherRepo: WeatherRepository,
     private val cache: CurrentWeatherCache) : ViewModel() {
 
     val tempObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
-    val iconTypeObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val weatherDescriptionObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val requestMadeTimeObservable: MutableLiveData<String> by lazy {MutableLiveData<String>() }
+    val iconObservable: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
 
     fun getWeather(latitude: Double, longitude: Double) {
 
@@ -37,9 +32,9 @@ class DailyWeatherViewModel @Inject constructor(
             // return stuff in cache
             val cacheValues = cache.getCurrentWeatherFromCache()
             tempObservable.postValue(cacheValues[Constants.cacheTempKey] + "\u2109")
-            iconTypeObservable.postValue(cacheValues[Constants.cacheWeatherIconKey])
             weatherDescriptionObservable.postValue(cacheValues[Constants.cacheWeatherDescriptionKey])
             requestMadeTimeObservable.postValue(getDate(cache.lastTimeAccessed,"dd/MM/yyyy hh:mm"))
+            determineWeatherIcon(cacheValues[Constants.cacheWeatherIconKey] ?: "")
 
             // make a new network request if we need to refresh cache values
             if(cache.refreshInMilliseconds <= (System.currentTimeMillis() - cache.lastTimeAccessed)) {
@@ -53,9 +48,9 @@ class DailyWeatherViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val currentWeatherModel = weatherRepo.getCurrentWeather(latitude, longitude)
             tempObservable.postValue(currentWeatherModel.current?.temp?.roundToInt().toString()+ "\u2109")
-            iconTypeObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.main)
             weatherDescriptionObservable.postValue(currentWeatherModel.current?.weather?.get(0)?.description)
             requestMadeTimeObservable.postValue(getDate(System.currentTimeMillis(),"dd/MM/yyyy hh:mm"))
+            determineWeatherIcon(currentWeatherModel.current?.weather?.get(0)?.main ?: "")
 
             val cacheValues = mutableMapOf<String,String>()
             cacheValues[Constants.cacheTempKey] = currentWeatherModel.current?.temp?.roundToInt().toString()
@@ -76,5 +71,20 @@ class DailyWeatherViewModel @Inject constructor(
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = milliSeconds
         return formatter.format(calendar.time)
+    }
+
+    // for some reason I can't use live data observable for the weather icon and data binding
+    // need to use regular var or else I get a not resource found error
+    private fun determineWeatherIcon(weatherDescription: String)  {
+       val icon = when(weatherDescription){
+            "Thunderstorm" -> R.drawable.thunderstorm_icon
+            "Drizzle" -> R.drawable.rain_icon
+            "Rain" -> R.drawable.rain_icon
+            "Snow" -> R.drawable.snow_icon
+            "Clear" -> R.drawable.sun_icon
+            "Clouds" -> R.drawable.cloudy_icon
+            else -> R.drawable.cloudy_icon
+        }
+        iconObservable.postValue(icon)
     }
 }
