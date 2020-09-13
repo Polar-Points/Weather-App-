@@ -13,11 +13,13 @@ import javax.inject.Inject
  *   Copyright @ 2019 Dang, Marty. All rights reserved.
  */
 class LocationDataRepository @Inject constructor(
-    private val context: Context) {
+    private val context: Context,
+    private val geocoder: Geocoder,
+    private val locationManager: LocationManager
+) {
 
     @SuppressLint("MissingPermission")
     fun getCurrentLocationCoordinates(): Map<String, Double> {
-        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         var latitude: Double
         var longitude: Double
         locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).let { location ->
@@ -32,7 +34,6 @@ class LocationDataRepository @Inject constructor(
     }
 
     fun convertCoordinatesToLocation(latitude: Double, longitude: Double): String {
-        val geocoder = Geocoder(context, Locale.getDefault())
         val addresses = geocoder.getFromLocation(latitude, longitude, 1)
         return context.getString(R.string.home_frag_location_string, addresses[0].locality,addresses[0].adminArea)
     }

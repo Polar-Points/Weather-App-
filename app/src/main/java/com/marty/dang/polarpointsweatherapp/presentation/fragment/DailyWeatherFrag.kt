@@ -3,8 +3,6 @@ package com.marty.dang.polarpointsweatherapp.presentation.fragment
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +14,9 @@ import androidx.fragment.app.viewModels
 import com.marty.dang.polarpointsweatherapp.MyApplication
 import com.marty.dang.polarpointsweatherapp.R
 import com.marty.dang.polarpointsweatherapp.databinding.FragmentDailyWeatherBinding
-import com.marty.dang.polarpointsweatherapp.presentation.DailyWeatherViewModelFactory
+import com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModelFactory
 import com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel
 import com.marty.dang.polarpointsweatherapp.utils.Constants
-import java.util.*
 import javax.inject.Inject
 
 

@@ -1,6 +1,7 @@
 package com.marty.dang.polarpointsweatherapp.di
 
 import android.content.Context
+import com.marty.dang.polarpointsweatherapp.data.di.LocationModule
 import com.marty.dang.polarpointsweatherapp.data.di.NetworkModule
 import com.marty.dang.polarpointsweatherapp.presentation.fragment.DailyWeatherFrag
 import dagger.BindsInstance
@@ -13,7 +14,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = [NetworkModule::class])
+@Component(modules = [NetworkModule::class, LocationModule::class])
 interface AppComponent {
 
     // Factory to create instances of AppComponent

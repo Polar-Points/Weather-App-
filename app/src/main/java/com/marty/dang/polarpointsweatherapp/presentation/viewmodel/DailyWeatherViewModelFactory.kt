@@ -1,11 +1,10 @@
-package com.marty.dang.polarpointsweatherapp.presentation
+package com.marty.dang.polarpointsweatherapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
 import com.marty.dang.polarpointsweatherapp.data.repository.LocationDataRepository
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
-import com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel
 import javax.inject.Inject
 
 /**
