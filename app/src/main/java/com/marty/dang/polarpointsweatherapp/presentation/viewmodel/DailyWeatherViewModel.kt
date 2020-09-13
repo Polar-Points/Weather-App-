@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marty.dang.polarpointsweatherapp.R
 import com.marty.dang.polarpointsweatherapp.data.repository.CurrentWeatherCache
+import com.marty.dang.polarpointsweatherapp.data.repository.LocationDataRepository
 import com.marty.dang.polarpointsweatherapp.data.repository.WeatherRepository
 import com.marty.dang.polarpointsweatherapp.utils.Constants
 import kotlinx.coroutines.Dispatchers
@@ -16,14 +17,30 @@ import kotlin.math.roundToInt
 
 class DailyWeatherViewModel @Inject constructor(
     private val weatherRepo: WeatherRepository,
+    private val locationRepo: LocationDataRepository,
     private val cache: CurrentWeatherCache) : ViewModel() {
 
     val tempObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val weatherDescriptionObservable: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val requestMadeTimeObservable: MutableLiveData<String> by lazy {MutableLiveData<String>() }
     val iconObservable: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+    val locationObservable: MutableLiveData<String> by lazy {MutableLiveData<String>() }
 
-    fun getWeather(latitude: Double, longitude: Double) {
+    fun displayWeather() {
+        // get latitude and longitude from location repo
+        getCoordinatesFromLocationRepo().let {
+            val latitude = it["latitude"] ?: 35.0
+            val longitude = it["longitude"] ?: 35.0
+            getWeather(latitude, longitude)
+            locationObservable.postValue(locationRepo.convertCoordinatesToLocation(latitude, longitude))
+        }
+    }
+
+    private fun getCoordinatesFromLocationRepo(): Map<String, Double> {
+        return locationRepo.getCurrentLocationCoordinates()
+    }
+
+    private fun getWeather(latitude: Double, longitude: Double) {
 
         // if cache is empty make a network request
         if(cache.isCurrentWeatherCacheEmpty){
@@ -73,8 +90,6 @@ class DailyWeatherViewModel @Inject constructor(
         return formatter.format(calendar.time)
     }
 
-    // for some reason I can't use live data observable for the weather icon and data binding
-    // need to use regular var or else I get a not resource found error
     private fun determineWeatherIcon(weatherDescription: String)  {
        val icon = when(weatherDescription){
             "Thunderstorm" -> R.drawable.thunderstorm_icon

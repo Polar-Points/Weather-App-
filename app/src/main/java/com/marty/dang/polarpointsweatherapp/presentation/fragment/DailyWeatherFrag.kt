@@ -43,31 +43,18 @@ class DailyWeatherFrag : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getCurrentWeather()
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if(requestCode == Constants.locationCode){
-            getCurrentWeather()
-        }
-    }
-
-    // query view model to get current weather
-    private fun getCurrentWeather(){
         if (ActivityCompat.checkSelfPermission(requireContext(), Constants.locationPermissionsArray[0]) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(requireContext(), Constants.locationPermissionsArray[1]) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission()
         } else {
-            //TODO: handle case where not able to get location
-            val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).let { location ->
-                val latitude = location?.latitude ?: 40.0
-                val longitude = location?.longitude ?: -74.0
-                viewModel.getWeather(latitude, longitude)
-                getCurrentLocation(latitude, longitude)
-            }
+            viewModel.displayWeather()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode == Constants.locationCode){
+            viewModel.displayWeather()
         }
     }
 
@@ -89,12 +76,5 @@ class DailyWeatherFrag : Fragment() {
         } else {
             requestPermissions(Constants.locationPermissionsArray, Constants.locationCode)
         }
-    }
-
-    // get address from lat and long
-    private fun getCurrentLocation(latitude: Double, longitude: Double) {
-        val geocoder = Geocoder(requireActivity(), Locale.getDefault())
-        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-        binding.location = getString(R.string.home_frag_location_string, addresses[0].locality,addresses[0].adminArea)
     }
 }

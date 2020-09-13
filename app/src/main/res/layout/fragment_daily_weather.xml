@@ -5,7 +5,6 @@
 
     <data>
         <import type="androidx.core.content.ContextCompat" />
-        <variable name="location" type="String"/>
         <variable name="viewModel"
             type="com.marty.dang.polarpointsweatherapp.presentation.viewmodel.DailyWeatherViewModel"/>
     </data>
@@ -77,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="@{location}"
+            android:text="@{viewModel.locationObservable}"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
             app:layout_constraintEnd_toEndOf="parent"
