@@ -54,7 +54,14 @@ class DailyWeatherFrag : Fragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == Constants.locationCode){
-            viewModel.displayWeather()
+            // Checking whether user granted the permission or not.
+            if (grantResults.isNotEmpty()
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                viewModel.displayWeather()
+            }
+            else {
+                requestLocationPermission()
+            }
         }
     }
 
