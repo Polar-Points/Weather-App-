@@ -7,14 +7,17 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
 
-    defaultConfig {
-        applicationId "com.marty.dang.polarpointsweatherapp"
-        minSdkVersion 26
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+    productFlavors {
+        flavorDimensions "versionCode"
+        defaultConfig {
+            applicationId "com.marty.dang.polarpointsweatherapp"
+            minSdkVersion 26
+            targetSdkVersion 30
+            versionCode 1
+            versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
     }
 
     buildFeatures {
@@ -29,6 +32,22 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    def flavor
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def flavorName = variant.productFlavors[0].name
+            def buildType = variant.buildType.name
+            def isSigned = variant.variantData.isSigned()?"":"-unsigned"
+            def versionName = variant.versionName
+            def versionCode = variant.versionCode
+
+            def apkName = "PolarPointsWeatherApp-" + versionName + "-" + versionCode + "-" + flavorName + "-" + buildType + isSigned + ".apk"
+
+            outputFileName = new File(apkName)
         }
     }
 }
