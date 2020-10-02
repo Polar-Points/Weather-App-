@@ -1,11 +1,11 @@
 package com.marty.dang.polarpointsweatherapp.data.repository
 
-import com.marty.dang.polarpointsweatherapp.BuildConfig
 import com.marty.dang.polarpointsweatherapp.data.OpenWeatherApiService
-import com.marty.dang.polarpointsweatherapp.data.model.CurrentWeatherModel
+import com.marty.dang.polarpointsweatherapp.data.room.WeatherCacheDao
+import com.marty.dang.polarpointsweatherapp.utils.Transformers
+import com.marty.dang.polarpointsweatherapp.presentation.model.DataSourceModel
 import com.marty.dang.polarpointsweatherapp.utils.Keys
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -14,13 +14,23 @@ import javax.inject.Inject
  */
 class WeatherRepository @Inject constructor(
     private  val webservice: OpenWeatherApiService,
-    private val httpClient: OkHttpClient.Builder) {
+    private val cache: WeatherCacheDao) {
 
-    suspend fun getCurrentWeather(latitude: Double, longitude: Double): CurrentWeatherModel {
-        if(BuildConfig.DEBUG){
-            val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            httpClient.addInterceptor(logging).build()
+    suspend fun getCurrentWeather(latitude: Double, longitude: Double): DataSourceModel {
+
+        val cacheObject = cache.getWeatherObject()
+
+        // valid cache
+        if(cacheObject != null) {
+            if(60000 >= (System.currentTimeMillis() - cacheObject.lastTimeAccessed)) {
+                return Transformers.transformCacheToDataSourceModel(cacheObject)
+            }
         }
-        return webservice.getCurrentWeather(latitude, longitude,"minutely,hourly,daily", Keys.API_KEY,"imperial")
+
+        // make a new network request since cache is old
+        val data = webservice.getCurrentWeather(latitude, longitude,"minutely,daily", Keys.API_KEY,"imperial")
+        val dataSourceModel = Transformers.transformApiToDataSourceModel(data)
+        cache.updateCache(Transformers.transformDataSourceModelToCache(dataSourceModel))
+        return dataSourceModel
     }
 }

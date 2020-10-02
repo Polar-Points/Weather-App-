@@ -13,12 +13,11 @@ import javax.inject.Inject
  */
 class DailyWeatherViewModelFactory @Inject constructor(
     private val weatherRepository: WeatherRepository,
-    private val locationRepo: LocationDataRepository,
-    private val currentWeatherCache: CurrentWeatherCache) : ViewModelProvider.Factory {
+    private val locationRepo: LocationDataRepository, ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(DailyWeatherViewModel::class.java)){
-            return DailyWeatherViewModel(weatherRepository, locationRepo, currentWeatherCache) as T
+            return DailyWeatherViewModel(weatherRepository, locationRepo) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

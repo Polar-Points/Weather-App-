@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ import com.marty.dang.polarpointsweatherapp.utils.Constants
 import javax.inject.Inject
 
 
-class DailyWeatherFrag : Fragment() {
+class DailyWeatherFrag : Fragment(), SeekBar.OnSeekBarChangeListener {
 
     @Inject lateinit var viewModelFactory: DailyWeatherViewModelFactory
     private val viewModel by viewModels<DailyWeatherViewModel> { viewModelFactory }
@@ -46,6 +47,7 @@ class DailyWeatherFrag : Fragment() {
         } else {
             viewModel.displayWeather()
         }
+        binding.seekbar.setOnSeekBarChangeListener(this)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -81,4 +83,13 @@ class DailyWeatherFrag : Fragment() {
             requestPermissions(Constants.locationPermissionsArray, Constants.locationCode)
         }
     }
+
+    override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+        // doesn't start at 0, starts at 1
+        viewModel.displayNewHourlyWeather(p1-1)
+    }
+
+    override fun onStartTrackingTouch(p0: SeekBar?) {}
+
+    override fun onStopTrackingTouch(p0: SeekBar?) {}
 }

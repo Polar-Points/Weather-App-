@@ -5,7 +5,6 @@ import android.content.Context
 import android.location.Geocoder
 import android.location.LocationManager
 import com.marty.dang.polarpointsweatherapp.R
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -15,8 +14,7 @@ import javax.inject.Inject
 class LocationDataRepository @Inject constructor(
     private val context: Context,
     private val geocoder: Geocoder,
-    private val locationManager: LocationManager
-) {
+    private val locationManager: LocationManager) {
 
     @SuppressLint("MissingPermission")
     fun getCurrentLocationCoordinates(): Map<String, Double> {

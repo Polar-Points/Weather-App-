@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="835dp"
         tools:context=".presentation.fragment.DailyWeatherFrag">
 
         <TextView
@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:text="@string/home_frag_title"
-            android:textStyle="bold"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
             android:id="@+id/homeFrag_temperature_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="24dp"
             android:text="@{viewModel.tempObservable}"
             android:textSize="80sp"
             android:textStyle="bold"
@@ -55,44 +55,90 @@
             android:id="@+id/homeFrag_weather_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:text="@{viewModel.weatherDescriptionObservable}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/homeFrag_temperature_text_view" />
+
+        <TextView
+            android:id="@+id/homeFrag_precipitation_chance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{viewModel.precipObservable}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_humidity" />
+
+        <TextView
+            android:id="@+id/homeFrag_wind_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{viewModel.windSpeedObservable}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_precipitation_chance" />
+
+        <TextView
+            android:id="@+id/homeFrag_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{viewModel.humidityObservable}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_weather_description" />
+
+        <TextView
+            android:id="@+id/homeFrag_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.dateObservable}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_wind_speed" />
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:max="24"
+            android:min="1"
+            android:tickMark="@drawable/ticks"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFrag_date" />
 
         <ImageView
             android:id="@+id/location_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/location_icon"
-            app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
-            app:layout_constraintEnd_toStartOf="@+id/homeFrag_location" />
+            app:layout_constraintEnd_toStartOf="@+id/homeFrag_location"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar" />
 
         <TextView
             android:id="@+id/homeFrag_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
             android:text="@{viewModel.locationObservable}"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/homeFrag_last_time_updated"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar" />
 
-        <TextView
-            android:id="@+id/homeFrag_last_time_updated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="@{viewModel.requestMadeTimeObservable}"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
