@@ -16,6 +16,8 @@ class LocationDataRepository @Inject constructor(
     private val geocoder: Geocoder,
     private val locationManager: LocationManager) {
 
+    private var defaultLocation = "Location not found"
+
     @SuppressLint("MissingPermission")
     fun getCurrentLocationCoordinates(): Map<String, Double> {
         var latitude: Double
@@ -33,6 +35,10 @@ class LocationDataRepository @Inject constructor(
 
     fun convertCoordinatesToLocation(latitude: Double, longitude: Double): String {
         val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-        return context.getString(R.string.home_frag_location_string, addresses[0].locality,addresses[0].adminArea)
+        // This check is needed on One plus six, due to size being 0 of list
+        if(addresses.size != 0){
+            defaultLocation = context.getString(R.string.home_frag_location_string, addresses[0].locality,addresses[0].adminArea)
+        }
+        return defaultLocation
     }
 }
