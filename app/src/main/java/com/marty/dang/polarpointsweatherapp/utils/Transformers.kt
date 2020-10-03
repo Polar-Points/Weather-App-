@@ -30,8 +30,8 @@ object Transformers {
         currentTempList.add(currentWeatherModel.current?.temp?.roundToInt().toString()+" \u2109")
         weatherDescriptionList.add(currentWeatherModel.current?.weather?.get(0)?.description.toString())
         humidityList.add(currentWeatherModel.current?.humidity.toString())
-        precipitationList.add((currentWeatherModel.hourly?.get(0)?.pop?.times(100)).toString())
-        windList.add(currentWeatherModel.current?.windSpeed.toString())
+        precipitationList.add((currentWeatherModel.hourly?.get(0)?.pop?.times(100)?.toInt()).toString())
+        windList.add(currentWeatherModel.current?.windSpeed?.roundToInt().toString())
 
         val date = currentWeatherModel.current?.dt?.times(1000L)
         val sdf = SimpleDateFormat("MM-dd-yyy h:mm a", Locale.US)
@@ -44,8 +44,8 @@ object Transformers {
             currentTempList.add(hourly.temp?.roundToInt().toString()+" \u2109")
             weatherDescriptionList.add(hourly.weather?.get(0)?.description.toString())
             humidityList.add(hourly.humidity.toString())
-            precipitationList.add((hourly.pop?.times(100)).toString())
-            windList.add(hourly.windSpeed.toString())
+            precipitationList.add((hourly.pop?.times(100)?.toInt()).toString())
+            windList.add(hourly.windSpeed?.roundToInt().toString())
 
             val date = hourly.dt?.times(1000L)
 
