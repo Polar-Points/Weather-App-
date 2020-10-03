@@ -24,7 +24,7 @@ object Transformers {
         val precipitationList = mutableListOf<String>()
         val windList = mutableListOf<String>()
         val dateList = mutableListOf<String>()
-        val lastTimeAccessed = Calendar.getInstance().timeInMillis
+        val lastTimeAccessed = System.currentTimeMillis()
 
         // add in the current temp first
         currentTempList.add(currentWeatherModel.current?.temp?.roundToInt().toString()+" \u2109")
@@ -34,7 +34,7 @@ object Transformers {
         windList.add(currentWeatherModel.current?.windSpeed.toString())
 
         val date = currentWeatherModel.current?.dt?.times(1000L)
-        val sdf = SimpleDateFormat("MM/dd/yyy h:mm a", Locale.US)
+        val sdf = SimpleDateFormat("MM-dd-yyy h:mm a", Locale.US)
         val humanTime = sdf.format(Date(date!!))
         dateList.add(humanTime)
 
@@ -47,11 +47,9 @@ object Transformers {
             precipitationList.add((hourly.pop?.times(100)).toString())
             windList.add(hourly.windSpeed.toString())
 
-            Timber.d("weather desc %s", hourly.weather?.get(0)?.description.toString())
-
             val date = hourly.dt?.times(1000L)
 
-            val sdf = SimpleDateFormat("MM/dd/yyy h:mm a", Locale.US)
+            val sdf = SimpleDateFormat("MM-dd-yyy h:mm a", Locale.US)
             val humanTime = sdf.format(Date(date!!))
             dateList.add(humanTime)
         }
@@ -81,23 +79,23 @@ object Transformers {
         }
 
         for(data in dataSourceModel.weatherDescriptionList) {
-            weatherDescriptionString += "/$data"
+            weatherDescriptionString += "$data/"
         }
 
         for(data in dataSourceModel.humidityList) {
-            humidityString += "/$data"
+            humidityString += "$data/"
         }
 
         for(data in dataSourceModel.precipitationList) {
-            precipitationString += "/$data"
+            precipitationString += "$data/"
         }
 
         for(data in dataSourceModel.windList) {
-            windList += "/$data"
+            windList += "$data/"
         }
 
         for(data in dataSourceModel.dateList) {
-            dateList += "/$data"
+            dateList += "$data/"
         }
 
         return WeatherObject(
