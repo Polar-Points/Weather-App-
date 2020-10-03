@@ -23,8 +23,8 @@ class LocationDataRepository @Inject constructor(
         var latitude: Double
         var longitude: Double
         locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).let { location ->
-            latitude = location?.latitude!!
-            longitude = location.longitude
+            latitude = location?.latitude ?: 40.0
+            longitude = location?.longitude ?: -70.0
         }
 
         val mapping = mutableMapOf<String, Double>()
