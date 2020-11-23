@@ -10,13 +10,10 @@
         android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.DailyWeatherFrag"
         android:label="home_fragment"
         tools:layout="@layout/fragment_daily_weather" >
-        <action
-            android:id="@+id/action_dailyWeatherFrag_to_settingsFrag"
-            app:destination="@id/settingsFrag" />
     </fragment>
     <fragment
         android:id="@+id/settingsFrag"
-        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.SettingsFrag"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:name="com.marty.dang.polarpointsweatherapp.presentation.fragment.SettingsFragment"
+        android:label="SettingsFragment" />
+
 </navigation>

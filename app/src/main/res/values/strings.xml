@@ -3,7 +3,6 @@
     <string name="home_frag_title">Current Weather</string>
     <string name="home_frag_location_string">%1$s, %2$s</string>
 
-
     <string name="place_holder_text">Insert Text Here</string>
     <string name="temp_place_holder_text">100</string>
 
@@ -14,6 +13,9 @@
 
     <string name="daily_tab_title">Daily</string>
     <string name="settings_tab_title">Settings</string>
+
+    <!-- SettingsFrag Preferences -->
+    <string name="dark_mode_toggle">Enable dark mode</string>
 
 
 </resources>
